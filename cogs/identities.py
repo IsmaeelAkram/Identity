@@ -31,7 +31,8 @@ class Identities(commands.Cog):
         
         await ctx.channel.send(
             embed=embed.Embed(
-                title=user_identity.name, 
+                title=user_identity.name,
+                color=0x2c2f33 
             )
             .set_thumbnail(url=user.avatar_url)
             .set_footer(text=f"Requested by {ctx.author.name}")
