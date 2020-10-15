@@ -22,8 +22,11 @@ class Identities(commands.Cog):
             await ctx.channel.send(embed=embed.SoftErrorEmbed(f"A database error seems to have occurred! Please report this in our Discord server.\n**Error:** `{result}`"))
 
     @commands.command()
-    async def show(self, ctx: commands.Context):
-        user = ctx.author
+    async def show(self, ctx: commands.Context, member: discord.Member = None):
+        if member is None:
+            user = ctx.author
+        else:
+            user = member.id
         user_identity = config.get_user_identity(user.id)
         if user_identity is None:
             await ctx.channel.send(embed=embed.SoftErrorEmbed("You don't have an ID! Create one with `id create`."))
