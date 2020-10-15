@@ -26,7 +26,7 @@ class Identities(commands.Cog):
         if member is None:
             user = ctx.author
         else:
-            user = member.id
+            user = member
         user_identity = config.get_user_identity(user.id)
         if user_identity is None:
             await ctx.channel.send(embed=embed.SoftErrorEmbed("You don't have an ID! Create one with `id create`."))
