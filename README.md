@@ -13,13 +13,13 @@ Identity is a bot that gives people the chance to introduce themselves, their so
 # Commands
 So that was all. People can create their own IDs and look at other people's IDs now. But how?
 
-## `id create`
+### `id create`
 The create command allows people to create their own IDs with the creation wizard.
 
-## `id show @User`
+### `id show @User`
 The show command shows anyone's ID. If you leave the mentioned user empty, it will show your own ID.
 
-## `id remove`
+### `id remove`
 The remove command allows people to delete their IDs. This will remove it from our database and allow you to create a new one.
 
 # Self hosting
