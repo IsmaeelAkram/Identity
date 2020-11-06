@@ -9,7 +9,7 @@ import chalk
 from utils import config
 from cogs import identities
 
-bot = commands.Bot("id ")
+bot = commands.Bot("idb ")
 bot.remove_command('help')
 cogs = []
 

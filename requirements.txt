@@ -1,4 +1,4 @@
 discord.py
-postgres
+mysql-connector
 pychalk
 python-dotenv

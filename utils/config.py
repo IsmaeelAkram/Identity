@@ -1,9 +1,15 @@
 import os
-from postgres import Postgres
 import chalk
+import mysql.connector
 
-db = Postgres(url=os.getenv("postgres_connection_string"))
-db.run("""
+db = mysql.connector.connect(
+    user=os.getenv("mysql_user"),
+    password=os.getenv("mysql_pass"),
+    host=os.getenv("mysql_host"),
+    database='identity'
+)
+cursor = db.cursor()
+cursor.execute("""
 CREATE TABLE IF NOT EXISTS identities (
     user_id BIGINT PRIMARY KEY,
     name TEXT,
@@ -14,13 +20,15 @@ CREATE TABLE IF NOT EXISTS identities (
 print(chalk.green("Created identities table if doesn't exist."))
 
 def get_user_identity(user_id):
-    user_identity = db.one(f"SELECT * from identities WHERE user_id=%(userid)s", userid=user_id)
+    cursor.execute(f"SELECT * from identities WHERE user_id=(%s)", (user_id,))
+    user_identity = cursor.fetchone()
     return user_identity
 
 
 def delete_identity(user_id):
     try:
-        db.run(f"DELETE FROM identities WHERE user_id=%(userid)s", userid=user_id)
+        cursor.execute(f"DELETE FROM identities WHERE user_id=(%s)", (user_id,))
+        db.commit()
         return True
     except Exception as e:
         print(e)
@@ -28,7 +36,8 @@ def delete_identity(user_id):
 
 def create_identity(user_id, name, socials, birthday):
     try:
-        db.run(f"INSERT INTO identities VALUES (%(userid)s, %(name)s, %(socials)s, %(birthday)s)", userid=user_id, name=name, socials=socials, birthday=birthday)
+        cursor.execute(f"INSERT INTO identities VALUES (%s, %s, %s, %s)", (user_id, name, socials, birthday))
+        db.commit()
         return True
     except Exception as e:
         print(e)

@@ -34,15 +34,15 @@ class Identities(commands.Cog):
         
         await ctx.channel.send(
             embed=embed.Embed(
-                title=user_identity.name,
+                title=user_identity[1],
                 color=0x2c2f33 
             )
             .set_thumbnail(url=user.avatar_url)
             .set_footer(text=f"Requested by {ctx.author.name}")
             .add_field(name="Username", value=f"{user.name}#{user.discriminator}")
             .add_field(name="Created At", value=user.created_at)
-            .add_field(name="Birthday", value=user_identity.birthday)
-            .add_field(name="Socials", value=user_identity.socials)
+            .add_field(name="Birthday", value=user_identity[3])
+            .add_field(name="Socials", value=f"```{user_identity[2]}```")
         )
 
     @commands.command()
